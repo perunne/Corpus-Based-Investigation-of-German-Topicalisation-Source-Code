@@ -18,10 +18,9 @@ library(dplyr)
 ```
 
 ```{r}
-# Read the TSV file
 pmi_data <- read_tsv("pmi_nouns.tsv")
 
-# Plot the distribution of PMIs
+# Plot of the PMI distribution
 ggplot(pmi_data, aes(x = pmi)) +
   geom_histogram(binwidth = 0.1, fill = "steelblue", color = "black") +
   labs(title = "Distribution of PMIs",
@@ -53,21 +52,19 @@ print(topicalised_counts)
 ```
 
 ```{r}
-# First, combine the PMI data with the reduced_corpus data
 # Assuming each sentence in reduced_corpus has a corresponding PMI value in pmi_data
 combined_data <- reduced_corpus %>%
   mutate(id = row_number()) %>%
   inner_join(pmi_data %>% mutate(id = row_number()), by = "id") %>%
   select(-id)
 
-# Fit a logistic regression model
+# Logistic Regression model
 # Assuming "topicalised" is a binary variable with "T" for topicalised sentences and "F" for non-topicalised sentences
 logistic_model <- glm(topicalised ~ pmi, data = combined_data, family = binomial(link = "logit"))
 
-# Summary of the logistic regression model
 summary(logistic_model)
 
-# Plot the relationship between PMI and the probability of topicalisation
+# Plot of the relationship between PMI and the probability of topicalisation
 combined_data %>%
   mutate(probability = predict(logistic_model, type = "response")) %>%
   ggplot(aes(x = pmi, y = probability, color = topicalised)) +
