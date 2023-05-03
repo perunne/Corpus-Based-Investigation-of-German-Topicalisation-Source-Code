@@ -1,8 +1,6 @@
 # Corpus-Based-Investigation-of-German-Topicalisation-Source-Code
 To complement my essay for PLIN0007 Core Issues in Linguistics
 
-There shouldn't be any issues viewing, editing and running this in the IDE of your choice, I use Intellij IDEA for Java and Rstudio for R
-
 You will need the Stanford CoreNLP German model to run the parser in the PMInouns.java file, I put the pom.xml for Maven which should settle the dependencies for you, but if you need help feel free to ask me!
 
 Bibliography: 
