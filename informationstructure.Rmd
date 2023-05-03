@@ -9,12 +9,13 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
-install.packages(c("tidyverse","dplyr"))
+install.packages(c("tidyverse","dplyr","nortest"))
 ```
 
 ```{r}
 library(tidyverse)
 library(dplyr)
+library(nortest)
 ```
 
 ```{r}
@@ -35,8 +36,8 @@ ggplot(pmi_data, aes(sample = pmi)) +
   geom_qq_line(color = "red") +
   ggtitle("Q-Q Plot of PMI Values")
 
-shapiro_test <- shapiro.test(pmi_data$pmi)
-print(shapiro_test)
+ad_test <- ad.test(pmi_data$pmi)
+print(ad_test)
 ```
 
 
